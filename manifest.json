@@ -1,0 +1,36 @@
+{
+    "manifest_version": 3,
+    "name": "Youtube tools",
+    "version": "1.0",
+    "description": "Collection of youtube features ",
+    "icons": {
+      "16": "/assets/icons/logo16.png",
+      "48":"/assets/icons/logo48.png",
+      "128":"/assets/icons/logo128.png"
+    },
+    "permissions": [
+      "storage",
+      "activeTab"
+    ],
+    "host_permissions": [
+      "*://*/*"
+    ],
+    "action": {
+      "default_popup": "/src/popup.html",
+      "default_icon": "/assets/icons/logo16.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://www.youtube.com/*"],
+        "js": ["src/scripts/content.js"],
+        "css": ["src/styles.css"]
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["images/*"],
+        "matches": ["<all_urls>"]
+      }
+    ]
+  }
+  
