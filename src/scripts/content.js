@@ -14,8 +14,6 @@ class button {
 window.addEventListener("load", () => {
   console.log("youtube extension loaded");
 
-  const port = chrome.runtime.connect(); // for messaging the background service worker
-
   let head = document.getElementsByTagName("head")[0];
   let video_title = head.getElementsByTagName("title")[0];
   const currentUrl = window.location.href;
@@ -24,6 +22,7 @@ window.addEventListener("load", () => {
   const config = { attributes: true, childList: true, subtree: true };
 
   const callback = (mutationList, observer) => {
+    const port = chrome.runtime.connect(); // for messaging the background service worker
     // console.log(ytInitialData);
     for (const mutation of mutationList) {
       if (mutation.type === "childList") {
@@ -53,11 +52,18 @@ window.addEventListener("load", () => {
 
           if (!playAll_exist) {
             let channel_button = document.getElementsByClassName(
-              "yt-spec-button-shape-next yt-spec-button-shape-next--outline yt-spec-button-shape-next--mono \
-               yt-spec-button-shape-next--size-m yt-spec-button-shape-next--icon-leading"
-            )[0];
+              "ytp-ce-channel-title ytp-ce-link"
+            )[0]
+              ? document.getElementsByClassName(
+                  "ytp-ce-channel-title ytp-ce-link"
+                )[0]
+              : document.getElementsByClassName(
+                  "yt-spec-button-shape-next yt-spec-button-shape-next--outline yt-spec-button-shape-next--mono yt-spec-button-shape-next--size-m yt-spec-button-shape-next--icon-leading"
+                )[0];
+
             let channelId = channel_button.href
-              .replace("https://www.youtube.com/channel/", "")
+              .replace("/channel/", "")
+              .replace("https://www.youtube.com", "")
               .replace("/videos", "");
             console.log("channel id: ", channelId);
             let playAll_button = create_button("playAll", newUrl, channelId);
@@ -70,7 +76,18 @@ window.addEventListener("load", () => {
             let playAll_html = document.createElement("button");
             playAll_html.textContent = "Play all";
             playAll_html.style.cssText =
-              "border-width:0px ; margin-right:8px; background: rgba(255,255,255,0.1) ; color: #f1f1f1;border-radius:20px; padding:0 14px; font-family: Roboto, Arial, sans-serif; font-weight: 500; font-size: 14px; ";
+              "border-width:0px ; margin-right:8px; background: rgba(255,255,255,0.1) ; color: #f1f1f1;border-radius:20px; \
+              padding:0 14px; font-family: Roboto, Arial, sans-serif; font-weight: 500; font-size: 14px;";
+            playAll_html.addEventListener("mouseenter", () => {
+              playAll_html.style.cssText =
+                "border-width:0px ; margin-right:8px; background:rgb(65,65,65); color: #f1f1f1;border-radius:20px; \
+              padding:0 14px; font-family: Roboto, Arial, sans-serif; font-weight: 500; font-size: 14px;";
+            });
+            playAll_html.addEventListener("mouseleave", () => {
+              playAll_html.style.cssText =
+                "border-width:0px ; margin-right:8px; background: rgba(255,255,255,0.1) ; color: #f1f1f1;border-radius:20px; \
+              padding:0 14px; font-family: Roboto, Arial, sans-serif; font-weight: 500; font-size: 14px;";
+            });
             const message = {
               action: "open_tab",
               url: playAll_button.playlist_link,
