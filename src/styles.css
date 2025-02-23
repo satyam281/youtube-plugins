@@ -13,9 +13,43 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
 
   font-size: large;
   color: rgb(191, 49, 49);
   font-weight: 800;
   background: rgba(53, 52, 53, 0.459);
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  color: aliceblue;
+  padding: 20px;
+}
+
+.features{
+  font-size: medium;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.feature{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.checkbox{
+  height: 15px;
+  width: 15px;
+  background: white;
+  margin-right: 10px;
+}
+
+.feature_text{
+  text-align: center;
+  display: flex;
+  align-items: center;
+  
 }
