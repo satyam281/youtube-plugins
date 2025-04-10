@@ -77,16 +77,16 @@ window.addEventListener("load", () => {
             playAll_html.textContent = "Play all";
             playAll_html.style.cssText =
               "border-width:0px ; margin-right:8px; background: rgba(255,255,255,0.1) ; color: #f1f1f1;border-radius:20px; \
-              padding:0 14px; font-family: Roboto, Arial, sans-serif; font-weight: 500; font-size: 14px;";
+                padding:0 14px; font-family: Roboto, Arial, sans-serif; font-weight: 500; font-size: 14px;";
             playAll_html.addEventListener("mouseenter", () => {
               playAll_html.style.cssText =
                 "border-width:0px ; margin-right:8px; background:rgb(65,65,65); color: #f1f1f1;border-radius:20px; \
-              padding:0 14px; font-family: Roboto, Arial, sans-serif; font-weight: 500; font-size: 14px;";
+                padding:0 14px; font-family: Roboto, Arial, sans-serif; font-weight: 500; font-size: 14px;";
             });
             playAll_html.addEventListener("mouseleave", () => {
               playAll_html.style.cssText =
                 "border-width:0px ; margin-right:8px; background: rgba(255,255,255,0.1) ; color: #f1f1f1;border-radius:20px; \
-              padding:0 14px; font-family: Roboto, Arial, sans-serif; font-weight: 500; font-size: 14px;";
+                padding:0 14px; font-family: Roboto, Arial, sans-serif; font-weight: 500; font-size: 14px;";
             });
             const message = {
               action: "open_tab",
@@ -95,7 +95,11 @@ window.addEventListener("load", () => {
             console.log("Sending message:", message);
             playAll_html.addEventListener("click", (playAll_button) => {
               console.log("playAll button pressed");
-              port.postMessage(message);
+              try {
+                port.postMessage(message);
+              } catch (error) {
+                console.log(error);
+              }
               // chrome.runtime.sendMessage({ message });
             });
             playAll_html.id = "playAll_button";
@@ -129,3 +133,9 @@ function create_button(button_type, url, channelId) {
 }
 
 function debugger_pause_test() {}
+
+function audio_download() {
+  //
+}
+
+function playlist_editor() {}
