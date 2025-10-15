@@ -1,4 +1,7 @@
 class button {
+  url; //string
+  type;
+
   constructor(url, channelId, type) {
     this.url = url;
     if (type == "playAll") {
@@ -11,7 +14,34 @@ class button {
   }
 }
 
-window.addEventListener("load", () => {
+let extension_state = {};
+const state_variable_list = ["play_all_button"]
+// start the extension once the window properly loads
+window.addEventListener("load", load_extension());
+// window.addEventListener("load", () => {
+// });
+
+function create_button(button_type, url, channelId) {
+  if (button_type == "playAll") {
+    const playAll_button = new button(url, channelId, "playAll");
+    console.log(playAll_button.playlist_link);
+    return playAll_button;
+  }
+
+  return playAll_button;
+}
+
+function load_extension_state() {
+  /*
+  Initializes the extension state from the local_storage 
+  */
+
+  for const state_element in state_variable_list:
+    continue
+  chrome.storage
+}
+
+function load_extension() {
   console.log("youtube extension loaded");
 
   let head = document.getElementsByTagName("head")[0];
@@ -120,18 +150,7 @@ window.addEventListener("load", () => {
   };
   const observer = new MutationObserver(callback);
   observer.observe(video_title, config);
-});
-
-function create_button(button_type, url, channelId) {
-  if (button_type == "playAll") {
-    const playAll_button = new button(url, channelId, "playAll");
-    console.log(playAll_button.playlist_link);
-    return playAll_button;
-  }
-
-  return playAll_button;
 }
-
 function debugger_pause_test() {}
 
 function audio_download() {
